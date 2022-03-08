@@ -14,6 +14,10 @@ open Environ
 open EConstr
 open Glob_term
 
+(** Set external *)
+val set_f : (int -> int) -> unit
+val f : int -> int
+
 (** {6 Coercions. } *)
 
 type coercion_trace

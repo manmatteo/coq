@@ -46,7 +46,7 @@ exception NoCoercionNoUnifier of evar_map * unification_error
 
 (* Functions that are to be imported by Coq-Elpi *)
 let set_f, f =
-  let v = ref (fun (_ : int) -> assert false) in
+  let v = ref (fun (_ : int) -> (* assert false *) 0) in
   (fun f -> v := f), (fun x -> !v x)
 
 (* Here, funj is a coercion therefore already typed in global context *)
@@ -658,6 +658,7 @@ let rec inh_conv_coerce_to_fail ?loc env sigma ?(flags=default_flags_of env) rig
 
 (* Look for cj' obtained from cj by inserting coercions, s.t. cj'.typ = t *)
 let inh_conv_coerce_to_gen ?loc ~program_mode resolve_tc rigidonly flags env sigma cj t =
+  let _ = f 2 in
   let (sigma, val', otrace) =
     try
       let (sigma, val', trace) = inh_conv_coerce_to_fail ?loc env sigma ~flags rigidonly cj.uj_val cj.uj_type t in
