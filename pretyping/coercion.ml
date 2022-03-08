@@ -44,6 +44,11 @@ let get_use_typeclasses_for_conversion =
 exception NoCoercion
 exception NoCoercionNoUnifier of evar_map * unification_error
 
+(* Functions that are to be imported by Coq-Elpi *)
+let set_f, f =
+  let v = ref (fun (_ : int) -> assert false) in
+  (fun f -> v := f), (fun x -> !v x)
+
 (* Here, funj is a coercion therefore already typed in global context *)
 let apply_coercion_args env sigma check isproj argl funj =
   let rec apply_rec sigma acc typ = function
